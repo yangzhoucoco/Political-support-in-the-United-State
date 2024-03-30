@@ -25,9 +25,9 @@ cleaned_data <-
       educ == 4 ~ "2-year",
       educ == 5 ~ "4-year",
       educ == 6 ~ "Post-grad"
-    ), # Added missing comma here
+    ),
     educ = factor(educ, levels = c(
-      "No HS", # Adjusted to match the case_when outcomes
+      "No HS", 
       "High school graduate",
       "Some college",
       "2-year",
@@ -51,7 +51,7 @@ cleaned_data <-
       faminc_new == 14 ~ "$250,000 - $349,999",
       faminc_new == 15 ~ "$350,000 - $499,999",
       faminc_new == 16 ~ "$500,000 or more",
-      faminc_new == 17 ~ "Prefer not to say" # Corrected duplicate value for '$500,000 or more' and 'Prefer not to say'
+      faminc_new == 17 ~ "Prefer not to say" 
     ),
     faminc_new = factor(
       faminc_new,
