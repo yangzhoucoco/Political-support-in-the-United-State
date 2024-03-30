@@ -1,8 +1,8 @@
 #### Preamble ####
-# Purpose: Models the relationship between voting preference and predictors of gender and race by logistic regression. It will implement with Bayesian methods via the rstanarm package.
-# Author: Yang Zhou, Yuean Wang, Dong Jun Yoon
-# Date: 14 March 2024
-# Contact: cocoyang.zhou@mail.utoronto.ca, yuean.wang@mail.utoronto.ca, dongjun.yoon@mail.utoronto.ca
+# Purpose: Models the relationship between voting preference and predictors of ducation, income, and personal gun ownership by logistic regression. It will implement with Bayesian methods via the rstanarm package.
+# Author: Yang Zhou
+# Date: 30 March 2024
+# Contact: cocoyang.zhou@mail.utoronto.ca
 # License: MIT
 
 
@@ -24,7 +24,7 @@ ces2022_reduced <-
 
 us_political_preferences <-
   stan_glm(
-    factor(voted_for) ~ gender4 + race,
+    factor(voted_for) ~ educ + faminc_new + gunown,
     data = ces2022_reduced ,
     family = binomial(link = "logit"),
     prior = normal(location = 0, scale = 2.5, autoscale = TRUE),
