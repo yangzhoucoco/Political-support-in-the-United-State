@@ -1,8 +1,8 @@
 #### Preamble ####
 # Purpose: Tests on clean data
-# Author: Yang Zhou, Yuean Wang, Dong Jun Yoon
-# Date: 14 March 2024 
-# Contact: cocoyang.zhou@mail.utoronto.ca, yuean.wang@mail.utoronto.ca, dongjun.yoon@mail.utoronto.ca
+# Author: Yang Zhou
+# Date: 30 March 2024 
+# Contact: cocoyang.zhou@mail.utoronto.ca
 # License: MIT
 
 
