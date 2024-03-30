@@ -1,8 +1,8 @@
 #### Preamble ####
 # Purpose: Downloads and saves the data from the Cooperative Congressional Election Study (CCES) 2022 Survey
-# Author: Rohan Alexander 
-# Date: 14 March 2024
-# Contact: cocoyang.zhou@mail.utoronto.ca, yuean.wang@mail.utoronto.ca, dongjun.yoon@mail.utoronto.ca
+# Author: Yang Zhou
+# Date: 30 March 2024
+# Contact: cocoyang.zhou@mail.utoronto.ca
 # License: MIT
 
 #### Workspace setup ####
@@ -18,7 +18,7 @@ ces2022 <-
     server = "dataverse.harvard.edu",
     .f = read_csv
   ) |>
-  select(votereg, presvote20post, race, gender4)
+  select(votereg, presvote20post, educ, faminc_new, gunown)
 
 write_csv(ces2022, "data/raw_datas/raw_datas.csv")
 
