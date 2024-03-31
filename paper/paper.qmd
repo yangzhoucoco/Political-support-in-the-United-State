@@ -1,0 +1,250 @@
+---
+title: "Demographic Groups with Stronger Biden Support in the Election Races'"
+author: 
+  - Yang Zhou
+thanks: "Code and data are available at: <https://github.com/yangzhoucoco/Political-support-in-the-United-State.git >"
+date: today
+date-format: long
+abstract: "This paper explores the relationship between voting preferences and the predictors of education, income, and personal gun ownership in the United States through analyzing 2022 US election database. By examining data from Cooperative Election Study, we identify clear patterns indicating that higher income are more likely to vote for Biden. Besides, the higher personal gun ownership will also significantly increase the likelihood of voting for Biden. By contrast, the people with higher education level show less probability to vote for Biden. Our findings underscore the critical impact of socio-economic status and personal security concerns on electoral outcomes, shedding light on the underlying dynamics that shape voter behavior in contemporary American politics. Ultimately, this research contributes to our understanding of the complex factors that drive electoral decisions, offering valuable insights for policymakers, political strategists, and citizens aiming to foster more informed and equitable democratic processes."
+
+
+format: pdf
+toc: true
+number-sections: true
+bibliography: references.bib
+---
+
+```{r}
+#| include: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(here)
+library(modelsummary)
+library(knitr)
+library(kableExtra)
+library(readr)
+library(ggplot2)
+```
+
+
+# Introduction
+The goal of the Cooperative Election Study (CES) is to investigate how Americans vote and perceive their electoral experiences, how they hold their representatives accountable in elections, and how their behavior and experiences vary depending on the political climate and social milieu. The Cooperative Election Study (CES) serves as a crucial platform for understanding the complexities of American electoral systems. This paper delves into the findings of the 2022 CES, which aimed to provide insights into voter behavior, perceptions of electoral experiences, and the broader socio-political milieu shaping democratic governance. With a focus on exploring how Americans vote, perceive their electoral experiences, and navigate the political climate, the CES helps us in understanding the electoral outcomes in the United States. 
+
+The Cooperative Election Study (CES) addressed gaps in understanding voter behavior by employing a multifaceted approach involving 60,000 cases and 60 research teams. Their methods included pre-election surveys and post-election assessments, providing detailed insights into American elections. Pre-election surveys were filled out on the spot between September 29 and November 8. The Post-election campaigning frenzy took place between November 10 and December 15. For every 1,000 respondents, half of the questions had common material while the other half were fully created and managed by each study team. Questions that are common to all team modules and have a sample size equal to the total sample size of all team modules make up common content. Every one of the sixty teams bought a 1,000-person survey. Every case was chosen online, and YouGov created a corresponding random sample for this investigation. The first data release happened on March 20, 2023. The Harvard University database contains archived and accessible data from this investigation. Vote verification is included in data release 2 for all respondents. The study on CES 2022 is still under progress. Using a large-scale national survey, the Collaborative Congressional Election project was founded in 2006 to investigate congressional elections and representation. The project built upon the analysis conducted by the Public Opinion Research and Training Lab at the Massachusetts Institute of Technology in 2005. Understanding these findings is crucial for policymakers, researchers, and citizens, as they shed light on the complexities of democracy and provide insights to strengthen democratic institutions. This paper aims to dive deeper into the CES findings, analyzing their implications for the future of American democracy.
+
+Throughout the paper, the data utilized for analysis, including both survey and census data, measurements, is in {#sec-data}. Following that, {#sec-model} introduces the model designed to generalize patterns and forecast election outcomes. It will talk about how the model is set up and model justification. In {#sec-results}, I will talk about the predicted results derived from the model, this includes the result of the model. Lastly, {#sec-Discussion} contains more detailed results in a broader context and addresses weaknesses of this paper as well as the future explorations. This paper uses the programming language `R`[@citeR] . The analysis, the model and the visualizations use the following packages: `dplyr`[@dplyr],  `tidyverse`[@tidyverse], `ggplot2`[@ggplot], `knitr` [@knitr],  `here` [@here] , and `kableExtra` [@kableExtra],`modelsummary`[@model_summary], and `rstanarm`[@rstanarm].
+
+
+
+# Data {#sec-data}
+
+## Source and Methodology
+The 2022 Cooperative Election Study (CES) [@main_data] involved significant data preprocessing, cleaning, and labeling efforts to ensure the quality and representativeness of the survey data. These efforts are elaborated on through descriptions of sampling methodology, matching procedures, and weighting processes as outlined in the CES Guide 2022.
+
+## Sampling and Sampling Matching
+The CES 2022 dataset is a sample of adult U.S. citizens, taken from a considerably larger population, rather than an exhaustive list of all possible cases in the target population. The sample was deliberately created to be a true reflection of the population of the United States and to capture the variations among the different legislative districts for in-depth examination in the majority of states.
+Through the Internet, YouGov [@yougov] conducted the CES 2022 survey. 60,000 adults were interviewed between September and November 2022 (pre-election data) and November and December 2022 (post-election data) for the Common Opinion. The YouGov matching approach for random sampling was used. YouGov employed the matched random sampling method at CES among other sampling techniques. The first step in this process is to count the target population, which in the case of general population research consists of all adults. This is typically done by using an extensive survey such as the American Community Survey. The target sample is then selected at random by CES from this target population. 
+However, because it is frequently impractical to make direct contact with these individuals, a matching sample is chosen from among selectable respondents who share the same characteristics as the target sample. This selection process is carried out based on a multitude of attributes available in the voter and consumer databases.
+
+## Weightening
+A weighting process is used to account for any residual imbalances between the matched samples, therefore rigorously verifying the representativeness of CES samples. The weighting of the sample was adjusted to align with the framework's distribution along several demographic and political aspects. Entropy balancing and iterative proportional fitting (sequencing) of multiple important variables and their interactions comprise the first stage of the weighting process. The sample is also thought to be representative of every state for the survey's common content and takes into account changes for statewide political races.
+There are two steps involved in selecting samples when utilizing the matching approach. First, select a sample at random from the intended audience. This sample is known as the target sample. The process of choosing a "representative" sample from a non-random sample of responders is known as sample matching. Although it works well for Web access panels, it may also be applied to other survey kinds, such phone surveys. The target population is enumerated before sample matching begins. All adults are the target group for general population studies, and they can be counted using either a top-notch survey like the American Community Survey or the decennial Census. This is referred to as a sampling frame in other contexts, although unlike traditional sampling, the sample is not taken out of the frame. 
+Using traditional sampling, participants in the study are chosen at random from a framework for sampling. Because not every person in the framework has access to contact information, particularly email addresses, and because declining to participate would raise the expense of sampling in this manner, it could not be practical or cost-effective.
+
+## Vote Vaildation
+The CES incorporated vote validation to verify the accuracy of respondents’ reported voting behaviors. Individual records were matched to the TargetSmart database of registered voters, and only records with a high level of confidence were considered matched. This process helped identify respondents who voted in the 2022 General and Primary Elections, as well as their modes of voting (e.g., absentee, early, mail, etc.). This validation step is crucial for analyses focused on voting behaviors and ensures that the CES data reflects actual voter participation.
+
+
+These methodologies indicate a comprehensive approach to data preprocessing, cleaning, and labeling within the CES 2022, aiming to enhance the accuracy, reliability, and representativeness of the survey data.
+
+
+## Variables
+```{r}
+#| label: fig-variables
+#| fig-cap: Brief summary of variables types
+#| echo: false
+#| warning: false
+#| message: false
+
+ces2022 <-  read_csv(file = here::here("data/raw_datas/raw_datas.csv"))
+    col_types =
+      cols(
+        "votereg" = col_integer(),
+        "presvote20post" = col_integer(),
+        "gender" = col_integer(),
+        "race" = col_integer()
+      )
+
+ces2022 |> slice_head(n = 10) |>
+  kable(booktabs = TRUE, caption = "Brief summary of variables types") |>
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
+```
+
+```{r}
+#| label: fig-vote
+#| fig-cap: The distribution of presidential preferences, by gender, and race
+#| echo: false
+#| warning: false
+#| message: false
+
+library(ggplot2)
+library(readr)
+library(here)
+
+ces2022 <- read_csv(here("data/analysis_data/analysis_data.csv"))
+
+
+ggplot(data = ces2022, aes(x = race, fill = voted_for)) +
+  geom_bar(position = "dodge") +  
+  geom_text(
+    aes(label = ..count..),
+    stat = 'count',
+    position = position_dodge(width = 0.9),
+    vjust = -0.25,
+    color = "black",
+    size = 3  
+  ) +
+  facet_wrap(facets = vars(gender4)) +
+  theme_minimal(base_size = 14) +  
+  labs(
+    x = "Race",
+    y = "Number of respondents",
+    fill = "Voted for"
+  ) +
+  coord_flip() +  
+  scale_fill_brewer(palette = "Set1") +
+  theme(
+    legend.position = "bottom",
+    strip.text = element_text(size = 12)  
+  )
+
+```
+   After downloading `dataverse` [@dataverse], We using `get_dataframe_by_name` to access the CES. We select and save the data that we are most care about, which are `votereg`, `presvote20post`, `race`, and `gender4`. `votereg` represent the voter registration status. To be more specific, whether they are registered to vote or not. `presvote20post` records the president that voter select in the election of 2020. “race" describe the voter's raical or ethnic group, and `gender4` refer to the gender of voters.
+  However, when we access the raw data, there are some variables that we are not interested in. Therefore, we use the codebook to delve into the details. We only care about the voter who are registered to vote, and we are mainly focus on investigating the voter who select Biden or Trump in 2020. We found out that when the "presvote20post" is 1, then this indicates the register vote for Biden, and when it is 2 represents that the voter stand for Trump. We use `tidyverse` [@tidyverse] to filter to the voters that we care about and label them with meaningful title. In addition，CES also provide the information for the gender of the voter. However, we noticed that there are four types of gender, which are man, woman, non-binary, other, and none and we are more interested in the group of man and woman. Therefore, we filter the gender by using `tidyverse` [@tidyverse]. When the variable `gender` is 1, this indicates "man", but we rename all "man" to "male". When the variable "gender" is 2, it refers to "woman". We also rename all "woman" to "female". Finally, the codebook also define different `race` from 1 to 8, which are White, Black, Hispanic, Asian, Native American, Middle Eastern, Two or more races, and other. We keep all those races because we are not only interested in the major racial group, but also curious about the respond from minority group.
+  To better understand the raw data, a summary table @fig-variables had been drawn in order to provide more details for each variables, explaining the variables we select. We select race and gender as the key variables that related to voter behavior. In @fig-vote, we can find the support data for both Biden and Trump based on the variables of gender and race.
+  
+
+## Measurements 
+The collected dataset from the Cooperative Election Study (CES) offers a comprehensive view of U.S. adult citizens' electoral behaviors, political opinions, and demographic characteristics. The CES 2022 dataset, gathered through an online survey by YouGov, encompasses 60,000 instances, meticulously detailed and categorized by various factors such as election experiences, contextual data, demographic information (e.g., gender and race), political affiliations, and opinions on various policy issues. This dataset ensures a reliable representation of the population through its meticulous sampling methodology and validation processes, guaranteeing that it accurately reflects the diverse perspectives within the U.S. electorate. The dataset employs a matched random sampling methodology, with its representativeness further confirmed through a two-stage weighting process involving entropy balancing and iterative proportional fitting. Preprocessing steps, including sample matching, weighting, and vote validation, are conducted to ensure data quality and representativeness, thereby minimizing the risk of representative bias.
+
+To better understand the American election and its voting system that occurred in 2022, we need to follow these steps: 
+
+**Define the Population:** The survey involves 60,000 cases, based on the survey of adult participants in the fall of 2022. Individual respondents participate in the survey, which is designed to record various information related to electoral behavior, political perspectives, and demographic characteristics.
+
+**Gather Data:** Acquire information regarding the total number of confirmed survey cases. This dataset should include various factors such as,  election experiences, contextual data, demographic details, political affiliations, and viewpoints on diverse policy matters.
+
+**Determine the Time Period:** Specify the time frame to calculate when the survey object was collected. The timeframe is relevant to survey participants about their opinions, voting intentions in the 2022 election. The first period is the pre-election data collection that occurred from September 29 to November 8, 2022, and the second period is post- election data gathered from November 10 to December 15, 2022. 
+
+**Calculate the Case:** Calculate each individual's distribution to the survey object. And consider the outcome that will be given with the distributions. 
+
+
+# Model {#sec-model}
+## Model set-up
+
+Define $y_i$ is the political preference of the respondent and equal to 1 if Biden and 0 if Trump. Then $\mbox{gender}_i$ is the gender of the respondent and $\mbox{race}_i$ is the race of the respondent.  
+We could estimate the parameters using `stan_glm()`. Note that the model is a generally accepted short-hand.  In practice rstanarm converts categorical variables into a series of indicator variables and there are multiple coefficients estimated. In the interest of run-time we will randomly sample 500 observations and fit the model on that, rather than the full dataset.
+
+
+
+
+\begin{align} 
+y_i|\pi_i &\sim \mbox{Bern}(\pi_i) \\
+\mbox{logit}(\pi_i) & = \beta_0+\beta_1 \times\mbox{gender}_i +\beta_2 \times \mbox{education}_i\\
+\beta_0 &\sim \mbox{Normal}(0, 2.5)\\
+\beta_1 &\sim \mbox{Normal}(0, 2.5)\\
+\beta_2 &\sim \mbox{Normal}(0. 2.5)
+\end{align}
+
+
+In `R` [@citeR], we run a logistic regression model in a Bayesian framework by using the `rstanarm` package of @rstanarm, `here` package of @here and `model_summary` package of @model_summary, we use the default priors from `rstanarm` in order to specific prior probability distributions for each of the parameters in the model. Logistic regression model is used to identify the correlation or relationship between some predictor variables and a outcome variable [@rohan], which is best fit with our research because we aim to identify the relationship between gender and race and support of Biden.
+
+Through feature selection, the influence of redundant features and noise features is reduced, and the generalization ability of the model is improved. By means of L1 regularization and L2 regularization, the complexity of the model is limited and overfitting is prevented. By integrating the results of multiple classifiers, the accuracy and robustness of the model are improved. By changing the structure of the model, such as increasing the depth of the network, increasing the hidden layer and changing the activation function, the expressibility of the model is improved. By expanding, rotating and scaling the data, the diversity of the data is increased and the generalization ability of the model is improved.
+
+
+## Model justification
+
+We expect a positive relationship between the size of the wings and time spent aloft. Logistic regression models learn and predict very quickly
+Fast, because logistic regression is a linear model, its decision function is a very simple linear function, so its computational complexity is low. Logistic regression model is easy to interpret, and the coefficient of the model can give the degree of influence of each feature on the model. This can be used in real business applications to help decision makers better understand the model's predictions. In addition, logistic regression models can handle large scale data well, because logistic regression models only need to dimension a small number of parameters to adapt well to a large number of parameters.
+
+We can use maths by including latex between dollar signs, for instance $\theta$.
+
+
+# Results {#sec-results}
+Our results are summarized in @tbl-model-summary-tableLogistic, regression is a common classification algorithm used to predict binary classification problems. In logistic regression, the probability that a sample belongs to a certain class is determined by mapping the input data to a probability range between 0 and 1 using a logical function, such as the sigmoid function. When interpreting the results of logistic regression models. Logistic regression models can provide coefficients (or weights) for each feature variable that represent the relative importance of the feature. The positive and negative symbols of the coefficient can tell us whether the feature has positive or negative influence on the target category, and the absolute value of the coefficient can map the importance of the feature to the target category.
+
+In this paper, we performed a logistic regression model from our cleaned dataset, which analysis 500 observations. Our focus of this paper was relationship of presidential candidate voted by individuals between the races (raceBlack, raceHispanic, raceMiddle Eastern, raceNative American, raceOther, raceTwo or more races, raceWhite) and the reference group, raceAsian. 
+
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+
+library(rstanarm)
+
+us_political_preferences <-
+  readRDS(file = here::here("model/first_model.rds"))
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: tbl-model-summary-table
+#| tbl-cap: "Explanatory models of political preferences based on gender and race (n = 500)"
+
+modelsummary(
+  list(
+    "Support Biden" = us_political_preferences
+  ),
+  statistic = "mad"
+)
+
+```
+The coefficient represents the logarithm of the anticipated variance in backing for Biden in contrast to Trump. When the coefficient values are negative, which means the voters decrease their support in Biden. Whereas, when the values are greater and equal to zero (positive) meaning the voters increase their support for Biden.
+
+From the @tbl-model-summary-tableLogistic, with the constant variable, raceAsian, the intercept is -0.462 which means that the support for Biden decreases by about 0.784 units while all other variables remain the same. The following race, Hispanic (0.354), Middle Eastern (0.535), White (0.940), Native American (1.245), Two or more races (1.372) has stronger/ increasing their support for stronger/ increasing their support for Biden; in this case, the mixed race people have the strongest support for Biden. Yet, Black (−1.030) and Other  (−0.092) decrease support for Biden by looking at the coefficients.
+# Discussion {#sec-Discussion}
+
+## Findings
+In this paper, the 2022 Cooperative Election Study (CES) was used for understanding the complexities of American electoral systems which was discussed in Section 2. In section 3, we applied a Bayesian logistic regression model to know if a person is likely to support Biden, based on their gender, race, and education status. In section 4, we discussed the summarization of the major results based on the research we did in Section 2 and 3. Summarization of our major results:
+
+1.Males are less likely to support Biden than Females,women most likely to vote for Biden,
+2.Hispanic, Middle Eastern, White, Native American, and Two or more races are more likely to support Biden. Black people tend to show less support for Biden.
+
+Throughout the discussion part, we will now provide detailed points of our results in the following sections. 
+
+## Males are less likely to support Biden than Females, women most likely to vote for Biden.
+
+Based on the analysis of @fig-vote, located under 2.6 Measurement, we can infer that males (represented by 1) exhibit a lower propensity to support Biden compared to females (represented by 2). Throughout most of the race, 1 consistently has fewer votes than 2. Specifically, women are identified as the demographic most inclined to vote for Biden, indicating a notable gender disparity in political preferences favoring the Biden candidacy. This trend is very recognizable based on research: women are registered to vote in the U.S. at higher rates than men. In recent years, the number of women registered to vote in the U.S. has typically been about 10 million more than the number of men registered to vote. In every presidential election since 1980, the proportion of eligible female adults who voted has exceeded the proportion of eligible male adults who voted. In all presidential elections prior to 1980, the voter turnout rate for women was lower than the rate for men. The number of female voters has exceeded the number of male voters in every presidential election since 1964. 
+
+## Hispanic, Middle Eastern, White, Native American, and Two or more races are more likely to support Biden. Black people tend to show less support for Biden.
+
+Based on the analysis of @fig-vote, located under 2.6 Measurement, we can find out that Middle Eastern, Hispanic, and Asian individuals are more likely to vote and show support for Biden. In the graph we provided, we can easily tell that votes for Biden are higher than votes for Trump for certain races. For example, Hispanic individuals have a total vote of 2481 individuals for Biden, however only 1210 individuals support and vote for Trump. This same trend can also be observed in races such as Middle Eastern, Hispanic, and Asian individuals. Additionally, in recent elections, among Asian American/Pacific Islander, Black, Hispanic, and white voters, the number of women voters has exceeded the number of male voters. The gender gap in voter turnout rates is the largest for Black voters. In @tbl-model-summary-tableLogistic of our paper, we observe a negative coefficient for black people (−1.030) in support for Biden, indicating that Black people are displaying less support and fewer votes for Biden. The coefficient represents the logarithm of the anticipated variance in backing for Biden in contrast to Trump. When the coefficient values are negative, which means the voters decrease their support in Biden. Whereas, when the values are greater and equal to zero (positive) meaning the voters increase their support for Biden. Women have also voted at higher rates than men among Hispanic and white voters in all presidential elections since the 1980s. Among Asian American/Pacific Islander voters, there is no consistent gender gap in voter turnout.
+
+
+
+## Application of Logistic Regression 
+Logistic regression is also known as generalized linear regression model, and its form is basically the same as that of linear regression model. The biggest difference lies in their different dependent variables. If it is continuous, it is multiple linear regression. If it is a binomial distribution, it is Logistic regression.
+Although Logistic regression has the name "regression", it is actually a classification method, mainly used for binary classification problems (that is, there are only two outputs, each representing two categories), but also can handle multiple classification problems.
+Linear regression is used to predict continuous variables, whose value range is (- ", + "), while logistic regression model is used to predict categories. For example, using logistic regression model to predict whether an item belongs to class A or Class B essentially predicts the probability that the item belongs to class A or class B, and the value range of probability is 0~1. Therefore, it is not possible to predict the probability directly with the linear regression equation, which involves the Sigmoid function, which converts the values of the range (-∞, +∞) to the range (0,1).
+
+## Linear Regression Model
+In summary, the essence of logistic regression model is to transform the linear regression model Q through a nonlinear Sigmoid function to obtain a probability value between 0 and 1. For binary classification problem (classification 0 and 1), the probability of predicting the classification as 1(or the classification with a larger value in the binary classification) can be calculated using the formula shown below. df has a total of about 7000 groups of historical data, of which about 2000 groups are lost customers, about 5000 groups are not lost customers will "whether to lose" as the target variable, other fields as characteristic variables, through some basic information and transaction records of a customer to predict whether he will lose, or judge the probability of loss.
+
+## Model Building
+The training set is used to train the data and build the model, and the test set is used to check the effect of the model built after training. The purpose of dividing the training set and the test set is to evaluate the model, and to optimize the model through the test set. Dividing the training set and the test set is also, in part, to check for overfitting of the model.
+
+## Weaknesses and Next Steps
+
+Logistic regression can only deal with linearly separable problems, and for nonlinear separable data, logistic regression will be poor. Logistic regression is sensitive to outliers, and if there are outliers in the data, the effect of logistic regression may be affected. Finally, logistic regression can usually only handle binary classification problems, and for multi-classification problems, some additional processing is required. If the sample size is insufficient or the features are too complex, logistic regression is prone to overfitting.
+
+
+\newpage
+
+# References {#sec-Reference}
+
+
