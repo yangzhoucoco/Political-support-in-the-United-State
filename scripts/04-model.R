@@ -1,5 +1,5 @@
 #### Preamble ####
-# Purpose: Models the relationship between voting preference and predictors of ducation, income, and personal gun ownership by logistic regression. It will implement with Bayesian methods via the rstanarm package.
+# Purpose: Models the relationship between voting preference and predictors of education, income, and personal gun ownership by logistic regression. It will implement with Bayesian methods via the rstanarm package.
 # Author: Yang Zhou
 # Date: 30 March 2024
 # Contact: cocoyang.zhou@mail.utoronto.ca
