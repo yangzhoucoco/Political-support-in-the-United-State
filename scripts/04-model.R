@@ -24,7 +24,7 @@ ces2022_reduced <-
 
 us_political_preferences <-
   stan_glm(
-    factor(voted_for) ~ educ + faminc_new + gunown,
+    factor(voted_for) ~ educ + income_group + gunown,
     data = ces2022_reduced ,
     family = binomial(link = "logit"),
     prior = normal(location = 0, scale = 2.5, autoscale = TRUE),
