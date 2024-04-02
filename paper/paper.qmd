@@ -45,12 +45,13 @@ I will uses the programming language `R`[@citeR] to analyze the data. `dplyr`[@d
 # Data {#sec-data}
 
 ## Source and Methodology
-
+The 2022 Cooperative Election Study (CES) [@main_data] was conducted by YouGov. In order to ensure the representativesness of the data, the survey utilized sampling methodology, matching process, weighting procedure.
 
 ## Sampling and Sampling Matching
-
+The survey interviewed 60,000 adults during two periods: pre-election from September 29 to November 8, 2022, and post-election from November 10 to December 15, 2022. YouGov employed matched random sample methodology for the sampling process. Sample matching is used to create representative samples from non-random pools of respondents and it is suitable for online survey. First,it will draw a random target population and then, it is going to select the matching respondents from the pool which matched with the target sample's characteristics. In order to replicate the target sample's attributes, YouGov uses proximity matching to calculates the likelihood or closeness between characteristics of the target samples; they will adjust the weight of variables when they need. 
 
 ## Weightening
+The sample use two-stage weighting process to correct the imbalances between matched sample and target population.They use a weight method called entropy balancing, which focus on attributes including gender, race, education, age, and voting behavior
 
 
 ## Vote Vaildation
