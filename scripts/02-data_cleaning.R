@@ -10,11 +10,9 @@ library(tidyverse)
 library(readr)
 library(here)
 
-# Assuming ces2022 is already read somewhere before this code
-# ces2022 <- read_csv(here("data/analysis_data/analysis_data.csv"))
 
-cleaned_data <- ces2022 %>%
-  filter(votereg == 1, presvote20post %in% c(1, 2)) %>%
+cleaned_data <- ces2022 |>
+  filter(votereg == 1, presvote20post %in% c(1, 2)) |>
   mutate(
     voted_for = if_else(presvote20post == 1, "Biden", "Trump"),
     voted_for = as_factor(voted_for),
@@ -62,12 +60,12 @@ cleaned_data <- ces2022 %>%
       faminc_new == 10 ~ "High",
       faminc_new == 11 ~ "High",
       faminc_new == 12 ~ "High",
-      faminc_new >= 13 ~ "Very High" # Assuming codes 13 and above correspond to "$200,000 - $249,999", etc.
+      faminc_new >= 13 ~ "Very High" 
     )
-  ) %>%
+  ) |>
   mutate(
     income_group = factor(income_group, levels = c("Low", "Middle", "High", "Very High"))
-  ) %>%
+  ) |>
   select(voted_for, educ, income_group, gunown)
 
 # Save the cleaned data
