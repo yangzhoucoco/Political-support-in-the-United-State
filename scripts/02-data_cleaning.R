@@ -7,10 +7,14 @@
 
 
 library(tidyverse)
+library(readr)
+library(here)
 
+# Assuming ces2022 is already read somewhere before this code
+# ces2022 <- read_csv(here("data/analysis_data/analysis_data.csv"))
 
-cleaned_data <- raw_data |>
-  filter(votereg == 1, presvote20post %in% c(1, 2)) |>
+cleaned_data <- ces2022 %>%
+  filter(votereg == 1, presvote20post %in% c(1, 2)) %>%
   mutate(
     voted_for = if_else(presvote20post == 1, "Biden", "Trump"),
     voted_for = as_factor(voted_for),
@@ -30,47 +34,6 @@ cleaned_data <- raw_data |>
       "4-year",
       "Post-grad"
     )),
-    faminc_new = case_when(
-      faminc_new == 1 ~ "Less than $10,000",
-      faminc_new == 2 ~ "$10,000 - $19,999",
-      faminc_new == 3 ~ "$20,000 - $29,999",
-      faminc_new == 4 ~ "$30,000 - $39,999",
-      faminc_new == 5 ~ "$40,000 - $49,999",
-      faminc_new == 6 ~ "$50,000 - $59,999",
-      faminc_new == 7 ~ "$60,000 - $69,999",
-      faminc_new == 8 ~ "$70,000 - $79,999",
-      faminc_new == 9 ~ "$80,000 - $99,999",
-      faminc_new == 10 ~ "$100,000 - $119,999",
-      faminc_new == 11 ~ "$120,000 - $149,999",
-      faminc_new == 12 ~ "$150,000 - $199,999",
-      faminc_new == 13 ~ "$200,000 - $249,999",
-      faminc_new == 14 ~ "$250,000 - $349,999",
-      faminc_new == 15 ~ "$350,000 - $499,999",
-      faminc_new == 16 ~ "$500,000 or more",
-      faminc_new == 17 ~ "Prefer not to say" # Corrected duplicate value for '$500,000 or more' and 'Prefer not to say'
-    ),
-    faminc_new = factor(
-      faminc_new,
-      levels = c(
-        "Less than $10,000",
-        "$10,000 - $19,999",
-        "$20,000 - $29,999",
-        "$30,000 - $39,999",
-        "$40,000 - $49,999",
-        "$50,000 - $59,999",
-        "$60,000 - $69,999",
-        "$70,000 - $79,999",
-        "$80,000 - $99,999",
-        "$100,000 - $119,999",
-        "$120,000 - $149,999",
-        "$150,000 - $199,999",
-        "$200,000 - $249,999",
-        "$250,000 - $349,999",
-        "$350,000 - $499,999",
-        "$500,000 or more",
-        "Prefer not to say"
-      )
-    ),
     gunown = case_when(
       gunown == 1 ~ "Personally own a gun",
       gunown == 2 ~ "Someone in the household owns a gun",
@@ -87,18 +50,25 @@ cleaned_data <- raw_data |>
       )
     ),
     income_group = case_when(
-      faminc_new %in% c("Less than $10,000", "$10,000 - $19,999", "$20,000 - $29,999", "$30,000 - $39,999") ~ "Low",
-      faminc_new %in% c("$40,000 - $49,999", "$50,000 - $59,999", "$60,000 - $69,999", "$70,000 - $79,999") ~ "Middle",
-      faminc_new %in% c("$80,000 - $99,999", "$100,000 - $119,999", "$120,000 - $149,999", "$150,000 - $199,999") ~ "High",
-      faminc_new %in% c("$200,000 - $249,999", "$250,000 - $349,999", "$350,000 - $499,999", "$500,000 or more", "Prefer not to say") ~ "Very High"
+      faminc_new == 1 ~ "Low",
+      faminc_new == 2 ~ "Low",
+      faminc_new == 3 ~ "Low",
+      faminc_new == 4 ~ "Low",
+      faminc_new == 5 ~ "Middle",
+      faminc_new == 6 ~ "Middle",
+      faminc_new == 7 ~ "Middle",
+      faminc_new == 8 ~ "Middle",
+      faminc_new == 9 ~ "High",
+      faminc_new == 10 ~ "High",
+      faminc_new == 11 ~ "High",
+      faminc_new == 12 ~ "High",
+      faminc_new >= 13 ~ "Very High" # Assuming codes 13 and above correspond to "$200,000 - $249,999", etc.
     )
-  ) |>
-  # Convert the income group to a factor with ordered levels
+  ) %>%
   mutate(
     income_group = factor(income_group, levels = c("Low", "Middle", "High", "Very High"))
-  ) |>
-  select(voted_for, educ, income_group, gunown) 
+  ) %>%
+  select(voted_for, educ, income_group, gunown)
 
 # Save the cleaned data
 write_csv(cleaned_data, "data/analysis_data/analysis_data.csv")
-
