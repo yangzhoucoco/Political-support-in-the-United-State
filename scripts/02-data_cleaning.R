@@ -47,7 +47,7 @@ cleaned_data <- ces2022 |>
       faminc_new == 14 ~ "$250,000 - $349,999",
       faminc_new == 15 ~ "$350,000 - $499,999",
       faminc_new == 16 ~ "$500,000 or more",
-      ),
+    ),
     faminc_new = factor(
       faminc_new,
       levels = c(
@@ -96,6 +96,11 @@ cleaned_data <- ces2022 |>
     income_group = factor(income_group, levels = c("Low", "Middle", "High", "Very High"))
   ) |>
   select(voted_for, educ, income_group, gunown) 
+
+# Drop rows with any missing values in ces2022
+ces2022 <- ces2022 %>%
+  filter(complete.cases(.))
+
 
 # Save the cleaned data
 write_csv(cleaned_data, "data/analysis_data/analysis_data.csv")
