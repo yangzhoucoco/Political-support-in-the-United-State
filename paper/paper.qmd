@@ -84,8 +84,8 @@ ces2022 |> slice_head(n = 10) |>
 After installing `dataverse`[@dataverse], I use `get_dataframe_by_name` to analyze CES. I select four variables that most relevant to our topic, which are `votereg`, `presvote20post`, `educ`, `faminc_new`, `gunown`.  `votereg` represents the voter registration status and only the voter who registered to vote would be considered. Besides, `presvote20post` represents the president that respondents vote in 2020 president election. `educ` means the education level of the respondents. In addition, `faminc_new` accounts for the family's annual income in 2021 year. `gunown` records the personal gun ownership by asking the respondent to answer whether they or anyone in their household own a gun. However, for the raw data, there are six different answers, including choosing ,Joe Biden, Donald Trump, Jo Jorgensen, Howie Hawkins, other, and did not vote for President. I only consider the respond of Joe Biden and Donald Trump. Therefore, when I clean the data, I select the group of Joe Biden and Donald Trump. In addition, there are 6 different education level, ranging from no high school, high school graduate, some college, 2-year, 4-year, and post-grad. I care about all of the education level, so I take all of those types into consideration. Moreover, there are 16 ranges of family income and the differences between each range is 10,000. To simiplied the data, I classifed them into 4 different types. For the income group which Less than $10,000,  $10,000 - $19,999, $20,000 - $29,999, and $30,000 - $39,999 are defined as "Low" income group. For those who range from $40,000 to $79,999 can seem as  "Middle" income group.  $80,000 to $199,999 can be considered as "High" income group. For the family earn $200,000 to $500,000 or more is very high income group.
 
 ```{r}
-#| label: fig-vote
-#| fig-cap: The distribution of presidential preferences, by education, and gun ownership
+#| label: fig-income-vote
+#| fig-cap: The distribution of presidential preferences, by income level
 #| echo: false
 #| warning: false
 #| message: false
@@ -119,8 +119,8 @@ ggplot(ces2022, aes(x = income_group, fill = voted_for)) +
 ```
 
 ```{r}
-#| label: fig-vote
-#| fig-cap: The distribution of presidential preferences, by education, and gun ownership
+#| label: fig-education-vote
+#| fig-cap: The distribution of presidential preferences, by education
 #| echo: false
 #| warning: false
 #| message: false
@@ -153,8 +153,8 @@ ggplot(ces2022, aes(x = educ, fill = voted_for)) +
 
 ```
 ```{r}
-#| label: fig-vote
-#| fig-cap: The distribution of presidential preferences, by education, and gun ownership
+#| label: fig-gun-ownership-vote
+#| fig-cap: The distribution of presidential preferences, by gun ownership
 #| echo: false
 #| warning: false
 #| message: false
@@ -191,7 +191,7 @@ ggplot(ces2022, aes(x = gunown, fill = voted_for)) +
 
 
 ```{r}
-#| label: fig-vote
+#| label: fig-education-income-vote
 #| fig-cap: The distribution of presidential preferences, by education, and income level
 #| echo: false
 #| warning: false
