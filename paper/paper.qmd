@@ -24,6 +24,7 @@ library(knitr)
 library(kableExtra)
 library(readr)
 library(ggplot2)
+library(rstanarm)
 ```
 
 
@@ -44,10 +45,10 @@ I will uses the programming language `R`[@citeR] to analyze the data. `dplyr`[@d
 
 # Data {#sec-data}
 
-## Source and Methodology
+## Source
 The 2022 Cooperative Election Study (CES) [@main_data] was conducted by YouGov. In order to ensure the representativesness of the data, the survey utilized sampling methodology, matching process, weighting procedure.
 
-## Sampling and Sampling Matching
+## Sampling
 The survey interviewed 60,000 adults during two periods: pre-election from September 29 to November 8, 2022, and post-election from November 10 to December 15, 2022. YouGov employed matched random sample methodology for the sampling process. Sample matching is used to create representative samples from non-random pools of respondents and it is suitable for online survey. First,it will draw a random target population and then, it is going to select the matching respondents from the pool which matched with the target sample's characteristics. In order to replicate the target sample's attributes, YouGov uses proximity matching to calculates the likelihood or closeness between characteristics of the target samples; they will adjust the weight of variables when they need. 
 
 ## Weightening
@@ -258,18 +259,13 @@ Logistic regression is designed for binary outcome variables,especially when the
 
 
 # Results {#sec-results}
-
-
-
 ```{r}
 #| echo: false
 #| eval: true
 #| warning: false
 #| message: false
 
-library(rstanarm)
-
-us_political_preferences <-
+voting_preference <-
   readRDS(file = here::here("model/first_model.rds"))
 ```
 
@@ -278,21 +274,29 @@ us_political_preferences <-
 #| message: false
 #| warning: false
 #| label: tbl-model-summary-table
-#| tbl-cap: "Explanatory models of political preferences based on gender and race (n = 500)"
+#| tbl-cap: "Explanatory models of political preferences based on education, income and gun ownership (n = 500)"
 
 modelsummary(
   list(
-    "Support Biden" = us_political_preferences
+    "Support Biden" = voting_preference
   ),
   statistic = "mad"
 )
 
 ```
+After conducting a logistic regression analysis on 500 samples, I summary the result in @tbl-model-summary-table. According to @Mustafa_2024, the coefficients of the model are referred to posterior means which provides a central tendency measure of parameter's posterior distribution. 
+The coefficient represents the log odds of supporting Biden for the reference group while all other variables are held at their baseline values.
+I care about three predictors which are education level, income level, and gun ownership and focus on the relationship of political preference of different groups and their reference group. To be more specific, in terms of education level, the model interpret the relationship between the voters who are 4-year education, high school graduate, no high school, post graduate, some college and the reference group with a 2-year education. The reference group for income level is high income group range from $80,000 to $199,999 and its compared to other income group, including low income, middles income, and very high income. For the individual gun ownership, "no one in the household owns a gun" is the reference group.
+For example, the coefficient for voters with a 4-year education level is -0.251. This indicates that holding all other variables constant, the voters having a 4-year education compared to the reference group(2-year education) is associated with a slight decreases. However, I found that the coefficient -0.251 are not at least twist as large as the standard errors(0.391), which are the number shown in the bracket below the coefficient. This represents that it is not a statistically significant coefficient.
 
+## Income
+
+## Education
+
+## Gun ownership
 # Discussion {#sec-Discussion}
 
 ## Findings
-
 
 ## High income 
 

@@ -22,7 +22,7 @@ ces2022_reduced <-
   analysis_data |> 
   slice_sample(n = 500)
 
-us_political_preferences <-
+voting_preference <-
   stan_glm(
     factor(voted_for) ~ educ + income_group + gunown,
     data = ces2022_reduced ,
