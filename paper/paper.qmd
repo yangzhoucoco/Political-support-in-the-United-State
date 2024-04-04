@@ -82,21 +82,18 @@ ces2022 |> slice_head(n = 10) |>
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
 ```
 After installing `dataverse`[@dataverse], I use `get_dataframe_by_name` to analyze CES. I select four variables that most relevant to our topic, which are `votereg`, `presvote20post`, `educ`, `faminc_new`, `gunown`.  `votereg` represents the voter registration status and only the voter who registered to vote would be considered. Besides, `presvote20post` represents the president that respondents vote in 2020 president election. `educ` means the education level of the respondents. In addition, `faminc_new` accounts for the family's annual income in 2021 year. `gunown` records the personal gun ownership by asking the respondent to answer whether they or anyone in their household own a gun. However, for the raw data, there are six different answers, including choosing ,Joe Biden, Donald Trump, Jo Jorgensen, Howie Hawkins, other, and did not vote for President. I only consider the respond of Joe Biden and Donald Trump. Therefore, when I clean the data, I select the group of Joe Biden and Donald Trump. In addition, there are 6 different education level, ranging from no high school, high school graduate, some college, 2-year, 4-year, and post-grad. I care about all of the education level, so I take all of those types into consideration. Moreover, there are 16 ranges of family income and the differences between each range is 10,000. To simiplied the data, I classifed them into 4 different types. For the income group which Less than $10,000,  $10,000 - $19,999, $20,000 - $29,999, and $30,000 - $39,999 are defined as "Low" income group. For those who range from $40,000 to $79,999 can seem as  "Middle" income group.  $80,000 to $199,999 can be considered as "High" income group. For the family earn $200,000 to $500,000 or more is very high income group.
+
 ```{r}
 #| label: fig-vote
-#| fig-cap: The distribution of presidential preferences, by gender, and race
+#| fig-cap: The distribution of presidential preferences, by education, and gun ownership
 #| echo: false
 #| warning: false
 #| message: false
 
-library(ggplot2)
-library(readr)
-library(here)
 
 ces2022 <- read_csv(here("data/analysis_data/analysis_data.csv"))
 
-
-ggplot(data = ces2022, aes(x = educ, fill = voted_for)) +
+ggplot(ces2022, aes(x = income_group, fill = voted_for)) +  
   geom_bar(position = "dodge") +  
   geom_text(
     aes(label = ..count..),
@@ -104,50 +101,159 @@ ggplot(data = ces2022, aes(x = educ, fill = voted_for)) +
     position = position_dodge(width = 0.9),
     vjust = -0.25,
     color = "black",
-    size = 2.5  
+    size = 2.5
   ) +
-  facet_wrap(facets = vars(income_group)) +
-  theme_minimal(base_size = 14) +  
   labs(
-    x = "Education",
-    y = "Number of respondents",
+    x = "Income Level",  
+    y = "Number of Respondents",  
     fill = "Voted for"
   ) +
   coord_flip() +  
-  scale_fill_brewer(palette = "Set1") +
+  scale_fill_brewer(palette = "Set1") +  
+  theme_minimal(base_size = 14) +  
   theme(
-    legend.position = "bottom",
-    strip.text = element_text(size = 12)  
+    legend.position = "bottom", 
+    strip.text = element_text(size = 12)
   )
-```
-  
-## Measurements 
 
+```
+
+```{r}
+#| label: fig-vote
+#| fig-cap: The distribution of presidential preferences, by education, and gun ownership
+#| echo: false
+#| warning: false
+#| message: false
+
+
+ces2022 <- read_csv(here("data/analysis_data/analysis_data.csv"))
+
+ggplot(ces2022, aes(x = educ, fill = voted_for)) +  
+  geom_bar(position = "dodge") +  
+  geom_text(
+    aes(label = ..count..),
+    stat = 'count',
+    position = position_dodge(width = 0.9),
+    vjust = -0.25,
+    color = "black",
+    size = 2.5
+  ) +
+  labs(
+    x = "Education Level",  
+    y = "Number of Respondents",  
+    fill = "Voted for"
+  ) +
+  coord_flip() +  
+  scale_fill_brewer(palette = "Set1") +  
+  theme_minimal(base_size = 14) +  
+  theme(
+    legend.position = "bottom", 
+    strip.text = element_text(size = 12)
+  )
+
+```
+```{r}
+#| label: fig-vote
+#| fig-cap: The distribution of presidential preferences, by education, and gun ownership
+#| echo: false
+#| warning: false
+#| message: false
+
+
+
+ces2022 <- read_csv(here("data/analysis_data/analysis_data.csv"))
+
+# Generate the plot focusing on Personal Gun Ownership
+ggplot(ces2022, aes(x = gunown, fill = voted_for)) +  
+  geom_bar(position = "dodge") +  
+  geom_text(
+    aes(label = ..count..),
+    stat = 'count',
+    position = position_dodge(width = 0.9),
+    vjust = -0.25,
+    color = "black",
+    size = 2.5
+  ) +
+  labs(
+    x = "Personal Gun Ownership",  
+    y = "Number of Respondents",  
+    fill = "Voted for"
+  ) +
+  coord_flip() +  
+  scale_fill_brewer(palette = "Set1") +  
+  theme_minimal(base_size = 14) +  
+  theme(
+    legend.position = "bottom", 
+    strip.text = element_text(size = 12)
+  )
+
+```
+
+
+```{r}
+#| label: fig-vote
+#| fig-cap: The distribution of presidential preferences, by education, and income level
+#| echo: false
+#| warning: false
+#| message: false
+
+ces2022 <- read_csv(here("data/analysis_data/analysis_data.csv"))
+
+
+ggplot(ces2022, aes(x = educ, fill = voted_for)) +
+  geom_bar(position = "dodge") +  
+  geom_text(aes(label = ..count..), stat = "count", vjust = -0.25, position = position_dodge(0.9), color = "black", size = 2.5) +
+  facet_wrap(~income_group) +  
+  labs(x = "Education Level", y = "Number of Respondents", fill = "Vote") +
+  coord_flip() +  
+  theme_minimal() +  
+  scale_fill_brewer(palette = "Set1") +  
+  theme(legend.position = "bottom", strip.text = element_text(size = 12))  
+```
+
+
+
+```{r}
+#| label: fig-vote
+#| fig-cap: The distribution of presidential preferences, by education, and income level
+#| echo: false
+#| warning: false
+#| message: false
+
+ggplot(ces2022, aes(x = income_group, fill = voted_for)) +
+  geom_bar(position = "fill") +
+  labs(x = "Income Group", y = "Proportion", fill = "Voted For") +
+  scale_fill_brewer(palette = "Set1") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+```
+
+
+## Measurements 
 
 
 
 # Model {#sec-model}
 ## Model set-up
 
-Define $y_i$ is the political preference of the respondent and equal to 1 if Biden and 0 if Trump. Then $\mbox{education}_i$ is education level of the respondent and $\mbox{income}_i$ is the income of the respondent. 
-
-The parameters can be derived utilizing the `stan_glm()` function. Practically, `rstanarm` transforms categorical variables into a set of binary indicators, leading to the estimation of numerous coefficients. To optimize computational efficiency, we will select a random subset of 500 data points for model fitting instead of using the entire dataset.
-
-
+Define $y_i$ is the political preference of the respondent, where $y_i$ equal to 1 indicates a preference for Biden and $y_i$ equal to 0 represent a preference for Trump. The predictors include $\mbox{education}_i$, which indicates the education level of the respondent and $\mbox{income}_i$ is the income level of the respondent. $\mbox{gunownership}_i$ is the state of whether individual or the people he/she knows own a gun.
 
 \begin{align} 
 y_i|\pi_i &\sim \mbox{Bern}(\pi_i) \\
-\mbox{logit}(\pi_i) & = \beta_0+\beta_1 \times\mbox{education}_i +\beta_2 \times \mbox{income}_i\\
-\beta_0 &\sim \mbox{Normal}(0, 2.5)\\
-\beta_1 &\sim \mbox{Normal}(0, 2.5)\\
-\beta_2 &\sim \mbox{Normal}(0. 2.5)
+\mbox{logit}(\pi_i) &= \alpha + \beta \times \mbox{education}_i + \gamma \times \mbox{income}_i + \delta \times \mbox{gun}_i\\
+\alpha &\sim \mbox{Normal}(0, 2.5) \\
+\beta &\sim \mbox{Normal}(0, 2.5) \\
+\gamma &\sim \mbox{Normal}(0, 2.5) \\
+\delta &\sim \mbox{Normal}(0, 2.5)
 \end{align}
 
+I set up a logistic regression model within a Bayesian framework to estimate model parameters, which particularly focusing on binary outcome variables such as political preference. To be more specific, I utilize `stan_glm()` function from `rstanrm` [@rstanrm] package, which can handles categorical variables efficiently by converting them into binary indicators. In order to optimize computational efficiency, I use a random sample of 500 observations to fit the model.
 
 
 
 ## Model justification
-
+Logistic regression is designed for binary outcome variables,especially when the dependent variables indicates two categories, in this case, the dependent variables are voting for Biden(1) or Trump(0). This model can provide a straightforward method for estimating the probability for voting for a specific candidate based on its predictors, including education level, income level, and gun ownership. In addition, Logistic regression is an ideal choice for explaining how unit changes in predictors variables affect the dependent variables.
 
 
 
