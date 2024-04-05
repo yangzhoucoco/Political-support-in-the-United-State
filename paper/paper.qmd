@@ -119,40 +119,9 @@ ggplot(ces2022, aes(x = income_group, fill = voted_for)) +
 
 ```
 
-```{r}
-#| label: fig-education-vote
-#| fig-cap: The distribution of presidential preferences, by education
-#| echo: false
-#| warning: false
-#| message: false
 
 
-ces2022 <- read_csv(here("data/analysis_data/analysis_data.csv"))
 
-ggplot(ces2022, aes(x = educ, fill = voted_for)) +  
-  geom_bar(position = "dodge") +  
-  geom_text(
-    aes(label = ..count..),
-    stat = 'count',
-    position = position_dodge(width = 0.9),
-    vjust = -0.25,
-    color = "black",
-    size = 2.5
-  ) +
-  labs(
-    x = "Education Level",  
-    y = "Number of Respondents",  
-    fill = "Voted for"
-  ) +
-  coord_flip() +  
-  scale_fill_brewer(palette = "Set1") +  
-  theme_minimal(base_size = 14) +  
-  theme(
-    legend.position = "bottom", 
-    strip.text = element_text(size = 12)
-  )
-
-```
 ```{r}
 #| label: fig-gun-ownership-vote
 #| fig-cap: The distribution of presidential preferences, by gun ownership
@@ -287,34 +256,50 @@ modelsummary(
 After conducting a logistic regression analysis on 500 samples, I summary the result in @tbl-model-summary-table. According to @Mustafa_2024, the coefficients of the model are referred to posterior means which provides a central tendency measure of parameter's posterior distribution. 
 The coefficient represents the log odds of supporting Biden for the reference group while all other variables are held at their baseline values.
 I care about three predictors which are education level, income level, and gun ownership and focus on the relationship of political preference of different groups and their reference group. To be more specific, in terms of education level, the model interpret the relationship between the voters who are 4-year education, high school graduate, no high school, post graduate, some college and the reference group with a 2-year education. The reference group for income level is high income group range from $80,000 to $199,999 and its compared to other income group, including low income, middles income, and very high income. For the individual gun ownership, "no one in the household owns a gun" is the reference group.
-For example, the coefficient for voters with a 4-year education level is -0.251. This indicates that holding all other variables constant, the voters having a 4-year education compared to the reference group(2-year education) is associated with a slight decreases. However, I found that the coefficient -0.251 are not at least twist as large as the standard errors(0.391), which are the number shown in the bracket below the coefficient. This represents that it is not a statistically significant coefficient.
+For example, the coefficient for voters with a 4-year education level is -0.251. This indicates that holding all other variables constant, the voters having a 4-year education compared to the reference group(2-year education) is associated with a slight decreases. 
+
+## Education
+According to @tbl-model-summary-table, the respondents who have high-school degree(1.337), no high school degree(1.131), and voter have some college degree (0.482) are more likely to vote for Biden, whereas, the people with 4-year education(-0.251), or post-graduate degree (-0.108) are less likely to vote for Biden. 
 
 ## Income
-
-## Education
+The respondent with low income, ranging from less than $10,000 to $39,999, and very high income group, ranging from $200,000 to $500,000 or more, are less likely to vote for Biden. Their coefficients are −0.207 and −0.954 respectively. The middle income group is more likely to vote for Biden, ranging from $40,000 to $79,999.
 
 ## Gun ownership
+People own a gun(1.058) or know someone in the household owns a gun(0.280) have a larger likelihood to vote for Biden.
+
+
 # Discussion {#sec-Discussion}
-
 ## Findings
+After I used a Bayesian logistic regression model to find the relationship between Biden support and the predictors, including education level, income level, and individual gun ownership, I conclude three main findings shown below:
+  1. People have higher education level is less likely to vote for Biden than those of lower education level
+  2. Middle income group tend to vote for Biden
+  3. The voters who own gun or know someone who own gun exhibit a higher propensity to vote for Biden 
 
-## High income 
+## People have higher education level is less likely to vote for Biden than those of lower education level
+The summary data presented in @tbl-model-summary-table reveals a notable electoral dynamic: individuals possessing a four-year undergraduate degree or higher education credentials exhibit a lower propensity to support President Biden, in contrast to those whose highest educational attainment is a high school diploma or below, who show a marked tendency towards endorsing him. This pattern suggests that educational attainment may play a significant role in shaping political preferences, though it's important to acknowledge that a multitude of factors can influence an individual's voting decisions.
 
+A critical consideration in unpacking these trends is the tax policy proposed by President Biden's administration, as outlined by @The_White_House_2024. The policy seeks to increase the marginal income tax rate to 39.6% for individuals whose annual earnings exceed $400,000. Notably, this income bracket is more likely to include individuals with advanced degrees. The people often command higher salaries because of their education level. Thus, the observed correlation between higher educational levels and diminished support for Biden might lead to considerations within this high earner regarding the potential impact of the proposed tax adjustments on their financial well-being.
 
+Such concerns are not merely about the taxation but also about the perceived fairness and implications of these tax changes. High-earning individuals may worry about bearing a disproportionate tax burden. Additionally, this group might conduct the survey on the long-term economic impacts of higher taxes on investment, job creation, and overall economic growth.
 
-## Education
-
-## Gun ownership
-
-
-
-
-## Application of Logistic Regression 
-
-## Linear Regression Model
+Furthermore, this discussion highlights the complexity between education, income, and political ideology. While higher education often correlates with higher income, it also fosters exposure to diverse ideas and critical thinking skills that can influence political beliefs and policy preferences. Therefore, the relationship between education, income, and political preference might be complex.
 
 
-## Model Building
+
+
+
+## Middle income group tend to vote for Biden
+The analysis presented in @fig-income-vote compellingly demonstrates that Biden’s support base comprises significantly of middle and high-income groups, with the middle-income segment being particularly dominate. This trend is substantiated by data in @tbl-model-summary-table, which indicates positive correlation between support for Biden and belonging to the middle-income group. While there is no a specific analyses explicating the motivations behind this pattern, it is plausible to attribute this trend to Biden’s policy that directly benefit middle-income families, such as the enhancement of tax credits. According to @Parys, Biden has supported expanding tax credits for middle-income families, such as Children Tax Credit, which a measure designed to alleviate the financial burden of child-rearing for families. Middle income group could benefit from this policy. Under Biden's administration, according to @US_Department_of_the_Treasury_2022, there was an increased credit amount in 2021; the credit amount raised from $2,000 each child to $3,600 for each child who aged from 6 to 17. Unlike previous version, Biden support a fully refundable credit policy which aim to provide a direct financial assistance to families. 
+This policy is really about helping middle-income families by giving them tax breaks and other benefits. The Biden administration is focusing on these families to help them with their money problems, which is why many of them support Biden. 
+
+## The voters who own gun or know someone who own gun exhibit a higher propensity to vote for Biden 
+The data presented in @tbl-model-summary-table reveals an interesting trend: individuals who own guns or are acquainted with gun owners exhibit a higher likelihood of supporting President Biden, despite he advocates more stringent gun control measures. Biden seeks to implement universal background checks, which called Bipartisan Background Checks Act. @Bipartisan_Background_Checks_Act aims to expand background check to cover all sales and transfers of weapons, including private transaction, online sales, and gun show sales.
+
+This apparent paradox, where gun owners show support for a candidate known for promoting restrictive gun policies. It is plausible that gun owners, while cherishing their  rights, are equally concerned about the pervasive issue of gun violence concerns in the nation. Their support for Biden may because they recognize the measures such as universal background checks represent a balanced approach to regulate gun violence without infringing on the legitimate rights of the citizens to own firearms for personal security and recreational purposes.
+
+
+
+
 
 ## Weaknesses and Next Steps
 
