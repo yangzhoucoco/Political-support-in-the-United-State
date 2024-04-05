@@ -1,4 +1,4 @@
-# Starter folder
+# Modeling Voter Preference Dynamics: Education, Income, and Gun Ownership in the 2020 US Presidential Election.
 
 ## Overview
 
