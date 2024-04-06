@@ -1,5 +1,5 @@
 ---
-title: "Demographic Groups with Stronger Biden Support in the Election Race'"
+title: "Modeling Voter Preference Dynamics: Education, Income, and Gun Ownership in the 2020 US Presidential Election"
 author: 
   - Yang Zhou
 thanks: "Code and data are available at: <https://github.com/yangzhoucoco/Political-support-in-the-United-State.git >"

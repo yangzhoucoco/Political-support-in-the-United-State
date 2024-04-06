@@ -1,13 +1,11 @@
 ---
 title: "Datasheet for 'A dataset'"
 author: 
-  - Dong Jun Yoon
-  - Yuean Wang
   - Yang Zhou
-thanks: "Code and data are available at: <https://github.com/yangzhoucoco/Political-support-in-the-United-States.git.>"
+thanks: "Code and data are available at: <https://github.com/yangzhoucoco/Political-support-in-the-United-State.git.>"
 date: today
 date-format: long
-abstract: "The CES 2022 dataset, collected through an online survey by YouGov, encompasses 60,000 instances representing U.S. adult citizens' electoral behaviors, political opinions, and demographic characteristics. The instances are detailed and categorized by election experiences, contextual data, demographic information (e.g., gender, race, education), political affiliations, and opinions on various policy issues. The dataset employs a matched random sampling methodology, with its representativeness validated through a two-stage weighting process involving entropy balancing and iterative proportional fitting. Preprocessing included sample matching, weighting, and vote validation, ensuring data quality and representativenes in order to avoid representative bias."
+abstract: "The CES 2022 dataset, gathered via an online survey conducted by YouGov, includes 60,000 data points that reflect the voting patterns, political views, and demographic profiles of American adults. This collection is organized into sections such as voting history, contextual background, demographics (for example, age, ethnicity, educational background), political leanings, and stances on a variety of policy matters. It utilizes a method of matched random sampling to ensure a broad representation, which is further corroborated by a dual-phase weighting mechanism that uses entropy balancing and iterative proportional fitting techniques. The preprocessing steps, which comprise sample matching, weighting, and verification of voting behavior, are meticulously carried out to maintain the integrity and representativeness of the data, thereby minimizing the risk of bias in representation."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -18,94 +16,97 @@ Extract of the questions from @gebru2021datasheets.
 
 **Motivation**
 
-1. *For what purpose was the dataset created? Was there a specific task in mind? Was there a specific gap that needed to be filled? Please provide a description
-    - The Cooperative Election Study (CES) aims to study how Americans perceive and hold their representatives accountable during elections. Besides, the study also interested in understanding their voting behavior and how their behavior be affected by political geography and social context. They study the group by capturing mass data across most of legislative constituencies. CES aims to fill the gap of understanding the American electoral process by analyzing congressional elections and national surveys.
+1. *For what purpose was the dataset created? Was there a specific task in mind? Was there a specific gap that needed to be filled? Please provide a description*
+   -The Cooperative Election Study (CES) is dedicated to exploring American citizens' perceptions and accountability of their elected officials during elections. It delves into the intricacies of voting habits and the influence of political geography and societal factors on these behaviors. By gathering extensive data from a majority of legislative districts, the CES seeks to bridge the knowledge gap in the American electoral system through detailed analysis of congressional races and national polls.
 
 2. *Who created the dataset (for example, which team, research group) and on behalf of which entity (for example, company, institution, organization)?*
-    - The Cooperative Election Study. It form 62 research teams and organizations. 
+    -The CES initiative encompasses a collaborative effort of 62 research teams and organizations.
 3. *Who funded the creation of the dataset? If there is an associated grant, please provide the name of the grantor and the grant name and number.*
-    - CES is supported by the National Science Foundation (NSF). Award #2148907 is the associated grant it has. The grantors involve numerous teams and collaborations.
+    - The project receives backing from the National Science Foundation (NSF), under grant number 2148907. This grant supports the collaborative efforts of numerous teams and organizations involved in the study.
 4. *Any other comments?*
-    - Based on real data, the guide provide a deep research of understanding American electoral behavior and different impacts of social contexts on voting aspect. It might provide implication for analyzing the trend of American elections.
+    - None
 
 **Composition**
 
 1. *What do the instances that comprise the dataset represent (for example, documents, photos, people, countries)? Are there multiple types of instances (for example, movies, users, and ratings; people and interactions between them; nodes and edges)? Please provide a description.*
-	- The instances in CES 2022 dataset represent individual respondents attend in the survey, which designed to record various information related to electoral behaviour, political perspective and demographic characteristics. The The types of instances include election experience, contextual data, and demographic information.
+	- The CES 2022 dataset includes responses from individual participants who took part in the survey. This survey was structured to collect a wide range of information about voters' behaviors, political views, and demographic details. The data encompasses details on participants' voting experiences, the context of their electoral participation, and various demographic factors.
 	
 2. *How many instances are there in total (of each type, if appropriate)?*
-	- CES involves 60,000 cases. Those cases are based on the survey of adult pariticipants in 2022 fall.
+	- The CES study captured data from 60,000 respondents during the fall of 2022. These respondents were adult participants surveyed on a range of topics related to their electoral participation.
+	
 3. *Does the dataset contain all possible instances or is it a sample (not necessarily random) of instances from a larger set? If the dataset is a sample, then what is the larger set? Is the sample representative of the larger set (for example, geographic coverage)? If so, please describe how this representativeness was validated/verified. If it is not representative of the larger set, please describe why not (for example, to cover a more diverse range of instances, because instances were withheld or unavailable).*
-	- This dataset does not contain all possible instances. By contrast, it is more focus on drawn the sample from  a larger set of U.S. adult citizens.  
-	  The sampling method used by YouGov in the CES involved a matched random sampling method. This method begins with a count of the target population, which for general population studies includes all adults and is usually counted through a comprehensive survey such as the American Community Survey. CES then draws a random sample from that target population, called the target sample.
-	  The representativeness was validated by weighting procedures. This procedures aims to address any remaining imbalances among the matched sample. The sample is weighted to match the distribution of the frame across multiple demographic and political dimensions. The weighting process consists of two stages: entropy balancing, followed by iterative proportional fitting (tilting) of several key variables and their interactions.
+	- Instead of capturing every possible instances, the CES 2022 dataset prioritizes a selection drawn from a broader pool of adult citizens in the U.S. The approach utilized by YouGov for CES involves matched random sampling. This technique starts with identifying a target population count, typically encompassing all adults, often determined through extensive surveys like the American Community Survey. From this population, CES selects a random sample, referred to as the target sample. The accuracy of this sample's representativeness is enhanced through a two-stage weighting process. This process aims to correct any potential imbalances within the matched sample by adjusting the sample's distribution to align with the broader population across various demographic and political dimensions, utilizing entropy balancing and iterative proportional fitting for adjustments.
+	
 4. *What data does each instance consist of? "Raw" data (for example, unprocessed text or images) or features? In either case, please provide a description.*
-	- It consists demographic information, political opinions and behaviors, electoral experiences, voter validation an device and participation information. In terms of political opinions, it includes respondents' political affiliations, voting president and their positions on various policy issues and political figures.
+	- The dataset encompasses a range of information, including demographic details, political beliefs and behaviors, electoral experiences, verification of voters, and data on device usage and participation. When it comes to political opinions, the dataset includes data on the political party affiliations of respondents, their choices for president, and their views on different policy matters and political figures.
+	
 5. *Is there a label or target associated with each instance? If so, please provide a description.*
 	- No.
+
 6. *Is any information missing from individual instances? If so, please provide a description, explaining why this information is missing (for example, because it was unavailable). This does not include intentionally removed information, but might include, for example, redacted text.*
-	- Vote file miss matching might be one of missing information from individual instances. The CES relies on matching respondent to outside voter files. There might be some chance that name, address, or other details are mismatch with respondent, leading to mismatch between voting status and respondent.
+  - The CES methodology includes matching respondents with external voter files, which can occasionally result in discrepancies. Errors in matching may arise from inconsistencies in names, addresses, or other personal information between the respondent and voter records, potentially leading to inaccuracies in correlating voting status with the individual respondent.
 7. *Are relationships between individual instances made explicit (for example, users' movie ratings, social network links)? If so, please describe how these relationships are made explicit.*
-	- CES 2022 dataset does not buil up a explicitly model relationship between individual instances. Each instance in the CES dataset represents a single respondent's survey answers, capturing their demographic details, political views, voting behavior, and other relevant information.
+	- The CES 2022 dataset is structured in such a way that it does not establish a direct model of relationships among individual responses. Instead, each entry in the dataset corresponds to the survey responses of an individual, encompassing a wide array of information including their demographic characteristics, political beliefs, voting actions, and other pertinent data.
 8. *Are there recommended data splits (for example, training, development/validation, testing)? If so, please provide a description of these splits, explaining the rationale behind them.*
 	- No.
 9. *Are there any errors, sources of noise, or redundancies in the dataset? If so, please provide a description.*
-	- Random measurement error might be one of potential errors. For example, some respondents provides wrong answer, which might lead to a number of respondents being incorrectly categorized.
+	- Random measurement error is identified as a potential source of inaccuracies within the dataset. This may occur when respondents provide incorrect answers, inadvertently leading to some individuals being misclassified.
+
 10. *Is the dataset self-contained, or does it link to or otherwise rely on external resources (for example, websites, tweets, other datasets)? If it links to or relies on external resources, a) are there guarantees that they will exist, and remain constant, over time; b) are there official archival versions of the complete dataset (that is, including the external resources as they existed at the time the dataset was created); c) are there any restrictions (for example, licenses, fees) associated with any of the external resources that might apply to a dataset consumer? Please provide descriptions of all external resources and any restrictions associated with them, as well as links or other access points, as appropriate.*
-	- No, it does not link to external source. This dataset is mainly rely on survey collection of individual participants.Voter file matching might be an external consideration. Data for the CES 2022 study, including vote validation for all respondents, is archived and available at the Harvard University Dataverse. The restriction might be it does not include a specific restriction related to the TargetSmart database or other external resources used for voter file matching and verification are not detailed.
+	- The CES 2022 dataset primarily consists of survey responses and does not directly link to external sources. While voter file matching is a part of its methodology, specific details on external databases like TargetSmart used for this purpose are not extensively covered. However, comprehensive data from the CES 2022, including vote verification for participants, is stored and accessible through the Harvard University Dataverse. This indicates a lack of detailed disclosure concerning the use of external resources for voter file matching and validation.
 11. *Does the dataset contain data that might be considered confidential (for example, data that is protected by legal privilege or by doctor-patient confidentiality, data that includes the content of individuals' non-public communications)? If so, please provide a description.*
-	- The CES 2022 dataset consists primarily of structured survey data collected from respondents about their political views, behaviors, and demographic information. Such data is generally not subject to legal privileges such as doctor-patient confidentiality or confidentiality of legal communications.
+	- The CES 2022 collection is made up of methodically organized survey responses from individuals, shedding light on their political perspectives, activities, and demographic background. This type of data collection is typically free from the constraints of legal confidentiality agreements, such as those found between doctors and patients or in legal communications.
 12. *Does the dataset contain data that, if viewed directly, might be offensive, insulting, threatening, or might otherwise cause anxiety? If so, please describe why.*
-	- In terms of Racial and Sexual Agreement, it might be offensive for the respondent, especially when the question design in a way that might present bias.
+	- Survey questions relating to racial and sexual categories may be perceived as insensitive or biased by some respondents, potentially raising concerns about the manner in which these topics are approached.
 13. *Does the dataset identify any sub-populations (for example, by age, gender)? If so, please describe how these subpopulations are identified and provide a description of their respective distributions within the dataset.*
-	- There are lots of sub-population in the dataset. 
-	1)Gender: The dataset categorizes respondents into "Man", "Woman", "Non-binary", and "Other", allowing for gender-based analyses.
-	2)Race: The dataset categorizes respondents into "White", "Black", "Hispanic", "Asian", "Native American", "Middle Eastern", "Two or more races", and "Other"
-	3)Education: Respondents' highest education levels are detailed, ranging from no high school diploma ("No HS") to postgraduate degrees
-	4)Political Affiliation: The dataset records respondents' party affiliation, including "Democrat", "Republican", and "Independent/Other".
-	5)Age: The dataset provide age range  (e.g., 18-29, 30-44, 45-64, 65 and over).
+	- Several sub-population in the dataset. 
+  1)Gender: The dataset categorizes respondents into "Man", "Woman", "Non-binary", and "Other"
+  2)Education:ranging from no high school diploma ("No HS") to postgraduate degrees
+  3)Age: age range from 18 to 65 and over 65
+  4)Race:"White", "Black", "Hispanic", "Asian", "Native American", "Middle Eastern", "Two or more races", and "Other"
+  5)Political Affiliation: including "Democrat", "Republican", and "Independent/Other".
 
 14. *Is it possible to identify individuals (that is, one or more natural persons), either directly or indirectly (that is, in combination with other data) from the dataset? If so, please describe how.*
-	- No, all the dataset is anomymize.
+	- No
 15. *Does the dataset contain data that might be considered sensitive in any way (for example, data that reveals race or ethnic origins, sexual orientations, religious beliefs, political opinions or union memberships, or locations; financial or health data; biometric or genetic data; forms of government identification, such as social security numbers; criminal history)? If so, please provide a description.*
-	- Yes, it includes race, sexual orientation, religious, political opinion, transgender status, health data and so on. For example, respondents are asked to answer their sexual orientation, with options including heterosexual/straight, lesbian/gay, bisexual, and others.
+	- The dataset indeed covers a broad spectrum of personal attributes including race, sexual orientation, religious beliefs, political views, transgender status, and health information. For instance, questions about sexual orientation offer choices like heterosexual/straight, lesbian/gay, bisexual, among others.
 16. *Any other comments?*
 	- No
 
 **Collection process**
 
 1. *How was the data associated with each instance acquired? Was the data directly observable (for example, raw text, movie ratings), reported by subjects (for example, survey responses), or indirectly inferred/derived from other data (for example, part-of-speech tags, model-based guesses for age or language)? If the data was reported by subjects or indirectly inferred/derived from other data, was the data validated/verified? If so, please describe how.*
-	- The data associated with each instance in the CES 2022 was primarily acquired through survey responses reported directly by the subjects. The survey was conducted online by YouGov and involved a methodology known as sample matching.The target population is first counted and then a representative sample is selected from a non-randomly selected group of respondents.
-  - Regarding the data segments concerning voter validation, the process involved aligning individual entries with the TargetSmart database, which contains records of U.S. registered voters. This alignment aimed to confirm the accuracy of survey respondents' claims about their voter registration and their actual voting activity in both the primary and general elections of 2022.
+	- Information for each entry in the CES 2022 dataset was mainly derived from direct survey inputs from participants. These surveys, managed by YouGov online, utilized a technique known as sample matching to select a subset of respondents that representatively reflects the broader target population. Additionally, parts of the dataset focusing on confirming voter registration details involved cross-referencing responses with the TargetSmart database, holding information on registered voters in the U.S., to verify the accuracy of participants' reported voter registration and activity in the elections.
+  
 2. *What mechanisms or procedures were used to collect the data (for example, hardware apparatuses or sensors, manual human curation, software programs, software APIs)? How were these mechanisms or procedures validated?*
-	- The CES 2022 data was collected through an online survey conducted by YouGov. They employed  "sample matching" methodology, which fit with online access panels.This method identify available respondents who are very similar in terms of measured characteristics to each member of the target sample. The total distance is calculated as the weighted sum of these individual distances on all attributes, and the weights can be adjusted for variables that are important to the study. This approach allows matched samples to closely represent the characteristics of the target population.
+	- The CES 2022 utilized an online survey mechanism for data collection, implemented by YouGov. The "sample matching" methodology was applied, aligning with online panel access. This process involves selecting respondents who share similar attributes with the target demographic, using a formula that considers the aggregate differences across various characteristics. Adjustments are made to ensure the sample accurately mirrors the target population's traits.
 3. *If the dataset is a sample from a larger set, what was the sampling strategy (for example, deterministic, probabilistic with specific sampling probabilities)?*
-	- The CES 2022 dataset's sampling strategy employed YouGov’s matched random sample methodology. 
+	- YouGov's methodology for creating the CES 2022 dataset involved a matched random sample approach, aiming to accurately represent the target population by matching survey participants to a predetermined demographic profile.
 4. *Who was involved in the data collection process (for example, students, crowdworkers, contractors) and how were they compensated (for example, how much were crowdworkers paid)?*
-	- . The CES involved 60 parties and research teams. The dataset does not provide specific details on how individuals be compensated.
+	- The CES project was a collaborative effort involving 60 research teams and organizations. Specific details about participant compensation or involvement terms were not disclosed within the dataset's documentation.
 5. *Over what timeframe was the data collected? Does this timeframe match the creation timeframe of the data associated with the instances (for example, recent crawl of old news articles)? If not, please describe the timeframe in which the data associated with the instances was created.*
-	- Collected over two time frame: the first period is the pre-election data collection occurred from September 29 to November 8, 2022,and the second period is  post-election data was gathered from November 10 to December 15, 2022.The timeframe is relevant to survey participants about their opinions, voting intention in 2022 election.
+	- The data collection for CES 2022 spanned two distinct periods: the pre-election phase from September 29 to November 8, 2022, and the post-election phase from November 10 to December 15, 2022. This timeline was specifically chosen to capture respondents' perspectives and intentions related to the 2022 elections accurately.
 6. *Were any ethical review processes conducted (for example, by an institutional review board)? If so, please provide a description of these review processes, including the outcomes, as well as a link or other access point to any supporting documentation.*
-	-  The dataset does not provide explicit details regarding any ethical review processes.
+	-  No specific information regarding the conduct of ethical review processes for the CES 2022 dataset has been provided.
 7. *Did you collect the data from the individuals in question directly, or obtain it via third parties or other sources (for example, websites)?*
-	- The data for the 2022 Cooperative Election Study (CES) was collected directly from individuals through a survey conducted over the internet by YouGov.
+	- Data collection for the 2022 Cooperative Election Study (CES) was achieved through a survey administered by YouGov, which using the internet to reach respondents directly.
 8. *Were the individuals in question notified about the data collection? If so, please describe (or show with screenshots or other information) how notice was provided, and provide a link or other access point to, or otherwise reproduce, the exact language of the notification itself.*
-	-Yes, because it is conducteddirectly from individuals through a survey conducted by YouGov over the internet. Cooperative Election Study (CES) or provide the exact language used in the notification. 
+	Yes, the CES data was indeed gathered directly from respondents via an online survey facilitated by YouGov, confirming the method of data collection.
 9. *Did the individuals in question consent to the collection and use of their data? If so, please describe (or show with screenshots or other information) how consent was requested and provided, and provide a link or other access point to, or otherwise reproduce, the exact language to which the individuals consented.*
-	- The individuals participating in the 2022 Cooperative Election Study (CES) did provide their consent for data collection.The respondent will be asked if they agree to attend in the survey by inquired "Consent to participate: Do you agree to participate in the study?" The exact language used to request consent, is straightforward.
+	- Participants in the 2022 CES explicitly gave their consent to be part of the study. They were presented with a clear inquiry about their willingness to participate, framed as "Consent to participate: Do you agree to participate in the study?" to ensure informed consent was obtained.
 10. *If consent was obtained, were the consenting individuals provided with a mechanism to revoke their consent in the future or for certain uses? If so, please provide a description, as well as a link or other access point to the mechanism (if appropriate).*
-	- The dataset does not provide specific information about whether individuals were given a mechanism to revoke their consent after agreeing to participate in the 2022 Cooperative Election Study (CES) or for certain uses of their data. 
+	- There is no detailed information within the dataset regarding whether participants in the 2022 CES had the option to withdraw their consent at any stage after initial agreement or to restrict certain uses of their data.
 11. *Has an analysis of the potential impact of the dataset and its use on data subjects (for example, a data protection impact analysis) been conducted? If so, please provide a description of this analysis, including the outcomes, as well as a link or other access point to any supporting documentation.*
-	- The provided CES Guide 2022 document does not specifically describe conducting a data protection impact analysis. It emphasizes on on the methodology, sample matching, data collection, 
+	- No, it focuses on outlining the study's methodology, including sample matching and the procedures for collecting data.
 12. *Any other comments?*
 	- No
 
 **Preprocessing/cleaning/labeling**
 
 1. *Was any preprocessing/cleaning/labeling of the data done (for example, discretization or bucketing, tokenization, part-of-speech tagging, SIFT feature extraction, removal of instances, processing of missing values)? If so, please provide a description. If not, you may skip the remaining questions in this section.*
-	- Yes, CES involves some data preprocessing, cleaning, and labeling to make sure the quality of the data. The descriptions have been included in the sampling methodology, matching procedures, and weighting processes. CES done 3 things, which are sampling and sample matching, weighting, and vote validation.To be more specific, in order to correct for any residual imbalances between the matched sample and the target population, the CES data was weight through 2 steps. First, using entropy balancing to match the distributions of the frame on key demographic variables (age, gender, education, race, etc.), and then using iterative proportional fitting ("raking") on additional variables (like voter registration status and 2020 Presidential vote choice) to further refine the representativeness of the sample. 
+	- Yes, the CES undertakes several data preprocessing steps to ensure high data quality, including cleaning and labeling. These steps are detailed within the methodology section, focusing on sampling, sample matching, weighting, and voter validation. Specifically, to address any discrepancies between the sampled group and the broader target population, the CES employs a two-step weighting process. Initially, entropy balancing is used to align the sample's distribution with key demographic factors such as age, gender, education, and race. Following this, iterative proportional fitting, or "raking," is applied to other variables like voter registration status and 2020 Presidential vote preferences, further enhancing the sample's representativeness.
 2. *Was the "raw" data saved in addition to the preprocessed/cleaned/labeled data (for example, to support unanticipated future uses)? If so, please provide a link or other access point to the "raw" data.*
-	- The CES Guide 2022 does not explicitly mention whether the "raw" data save in addition to the preprocessed/cleaned/labeled data.
+	- No.
 3. *Is the software that was used to preprocess/clean/label the data available? If so, please provide a link or other access point.*
 	- No.
 4. *Any other comments?*
@@ -129,36 +130,37 @@ Extract of the questions from @gebru2021datasheets.
 **Distribution**
 
 1. *Will the dataset be distributed to third parties outside of the entity (for example, company, institution, organization) on behalf of which the dataset was created? If so, please provide a description.*
-	- Yes, it will. It indicated that the data for the Cooperative Election Study (CES) 2022 is available at the Harvard University Dataverse. This can be seem as the dataset is accessible to third parties outside of the institutions directly involved in the creation of the dataset, such as Harvard University and YouGov.
+	- Yes, it will. It indicated that the data for the Cooperative Election Study (CES) 2022. It is accessable in the Harvard University Dataverse.  it is available to external parties beyond those directly involved in its survey.
 2. *How will the dataset be distributed (for example, tarball on website, API, GitHub)? Does the dataset have a digital object identifier (DOI)?*
-	- The Cooperative Election Study (CES) 2022 will be distributed through the Harvard University Dataverse. This distribution method ensures that the dataset is accessible for academic and research purposes. The DOI for the Cooperative Election Study Common Content 2022 is https://doi.org/10.7910/DVN/PR4L8P, 
+	- The CES 2022 dataset is shared via the Harvard University Dataverse, in order to ensure academic and research can access the data. The dataset's DOI is https://doi.org/10.7910/DVN/PR4L8P.
+
 3. *When will the dataset be distributed?*
-	- Dataset is distributed in two period: first, on March 20, 2023. It included the CES 2022 Common Content, which is the data collected that is common across all participating research teams.The second period is on September 8, 2023, it included vote validation for all respondents, enhancing the dataset's utility for electoral research by verifying the voting behavior reported by the survey participants.
+	- The distribution of the dataset occurs in two phases. Firstly, on March 20, 2023, the CES 2022 Common Content was released, encompassing data uniformly collected by all the contributing research teams. Subsequently, on September 8, 2023, vote validation data for all participants was added, significantly augmenting the dataset's value for election studies by confirming the accuracy of the voting behavior reported by survey respondents.electoral research by verifying the voting behavior reported by the survey participants.
 4. *Will the dataset be distributed under a copyright or other intellectual property (IP) license, and/or under applicable terms of use (ToU)? If so, please describe this license and/ or ToU, and provide a link or other access point to, or otherwise reproduce, any relevant licensing terms or ToU, as well as any fees associated with these restrictions.*
 	- No.
 5. *Have any third parties imposed IP-based or other restrictions on the data associated with the instances? If so, please describe these restrictions, and provide a link or other access point to, or otherwise reproduce, any relevant licensing terms, as well as any fees associated with these restrictions.*
 	- No.
 6. *Do any export controls or other regulatory restrictions apply to the dataset or to individual instances? If so, please describe these restrictions, and provide a link or other access point to, or otherwise reproduce, any supporting documentation.*
-	- TBD
+	- No.
 7. *Any other comments?*
 	- No.
 
 **Maintenance**
 
 1. *Who will be supporting/hosting/maintaining the dataset?*
-	- The dataset for the CES 2022 is maintained and hosted by the Harvard University Dataverse.
+	-The Harvard University Dataverse support the dataset.
 2. *How can the owner/curator/manager of the dataset be contacted (for example, email address)?*
-	- People can directly contact The Harvard University Dataverse platform.
+	- People can contact the dataset via the Harvard University Dataverse platform.
 3. *Is there an erratum? If so, please provide a link or other access point.*
 	- No
 4. *Will the dataset be updated (for example, to correct labeling errors, add new instances, delete instances)? If so, please describe how often, by whom, and how updates will be communicated to dataset consumers (for example, mailing list, GitHub)?*
-	- The guide does not provide detail information about update.
+	- Do not have specific information about that.
 5. *If the dataset relates to people, are there applicable limits on the retention of the data associated with the instances (for example, were the individuals in question told that their data would be retained for a fixed period of time and then deleted)? If so, please describe these limits and explain how they will be enforced.*
-	- The CES Guide 2022 does not provide specific information regarding limits on the retention of data associated with the instances.
+	-  Do not have specific information about that.
 6. *Will older versions of the dataset continue to be supported/hosted/maintained? If so, please describe how. If not, please describe how its obsolescence will be communicated to dataset consumers.*
-	- The guide does not discuss about the policies regarding the support, hosting, or maintenance of older versions of the dataset.
+	-  Do not have specific information about that.
 7. *If others want to extend/augment/build on/contribute to the dataset, is there a mechanism for them to do so? If so, please provide a description. Will these contributions be validated/verified? If so, please describe how. If not, why not? Is there a process for communicating/distributing these contributions to dataset consumers? If so, please provide a description.*
-	- The guide does not include a explicit mechanism for others to extend to the dataset.
+	-  Do not have specific information about that.
 8. *Any other comments?*
 	- No
 
