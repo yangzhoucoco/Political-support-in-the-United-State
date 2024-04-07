@@ -297,7 +297,7 @@ Moreover, select logistics model merely might fail to capture the overall intera
 For solving this limitation, the next steps can be firstly, expand the sample size. To design a research in longitudinal approach might also helpful for identify causality. Additionally, introduce other models to further ensure the accuracy and interpretability 
 will also be useful.
 
-##Appendix
+# Appendix {#sec-Appendix}
 
 **Motivation**
 
